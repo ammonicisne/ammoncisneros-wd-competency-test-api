@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
+flask-cors = "*"
 flask-heroku = "*"
 gunicorn = "*"
 heroku = "*"

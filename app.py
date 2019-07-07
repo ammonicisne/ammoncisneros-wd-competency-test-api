@@ -1,17 +1,16 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_heroku import Heroku
 from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-heroku = Heroku(app)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.sqlite")
 
-db = SQLAlchemy(app)
 CORS(app)
+
+db = SQLAlchemy(app)
 
 class Article(db.Model):
     __tablename__ = "articles"
@@ -40,7 +39,7 @@ def article_input():
 
 @app.route("/articles", methods=["GET"])
 def get_articles():
-    all_articless = db.session.query(Article.id, Article.title, Article.category, Article.content).all()
+    all_articles = db.session.query(Article.id, Article.title, Article.category, Article.content).all()
     return jsonify(all_articles)
 
 @app.route("/article/<id>", methods=["GET"])
